@@ -5,7 +5,7 @@ import json;
 print("Hey, its under development...")
 
 class Block:
-    def __init__(self,index, createdOn, data, hash = None, previousHash = None):
+    def __init__(self,index, createdOn, data, previousHash = None):
         self.index = index
         self.createdOn = createdOn
         self.data = data,
@@ -19,3 +19,10 @@ class Block:
 
 myFirstBlock = Block( 1, str(datetime.now()), { "price" : 100})
 print(myFirstBlock.__dict__)
+
+class BlockChain:
+    def __init__(self):
+        self.myBChain = [self.createGenesisBlock()]
+
+    def createGenesisBlock():
+        return Block( 1, str(datetime.now()), { "price" : 100})
