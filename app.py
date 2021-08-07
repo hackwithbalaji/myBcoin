@@ -1,4 +1,6 @@
 from datetime import datetime;
+import hashlib;
+import json;
 
 print("Hey, its under development...")
 
@@ -11,7 +13,9 @@ class Block:
         self.previousHash = previousHash
 
     def calculateHash(self):
-        return "Demo Hash " + str(self.index)
+        return hashlib.sha256(
+            json.dumps(self.__dict__).encode()
+        ).hexdigest()
 
-myFirstBlock = Block( 1, datetime.now(), { "price" : 100})
+myFirstBlock = Block( 1, str(datetime.now()), { "price" : 100})
 print(myFirstBlock.__dict__)
