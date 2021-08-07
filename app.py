@@ -5,9 +5,9 @@ import json;
 print("Hey, its under development...")
 
 class Block:
-    def __init__(self,index, createdOn, data, previousHash = None):
+    def __init__(self,index, data, previousHash = None):
         self.index = index
-        self.createdOn = createdOn
+        self.createdOn = str(datetime.now())
         self.data = data,
         self.hash = self.calculateHash(),
         self.previousHash = previousHash
@@ -17,12 +17,20 @@ class Block:
             json.dumps(self.__dict__).encode()
         ).hexdigest()
 
-myFirstBlock = Block( 1, str(datetime.now()), { "price" : 100})
-print(myFirstBlock.__dict__)
-
 class BlockChain:
     def __init__(self):
         self.myBChain = [self.createGenesisBlock()]
 
-    def createGenesisBlock():
-        return Block( 1, str(datetime.now()), { "price" : 100})
+    def createGenesisBlock(self):
+        return Block( 1, { "price" : 100})
+
+    def addNewBlock(self, data):
+        return self.myBChain.append(
+            Block(len(self.myBChain), data, self.myBChain[len(self.myBChain) - 1].hash)
+        )
+
+myB = BlockChain()
+myB.addNewBlock({"price" : 151})
+for i in myB.myBChain:
+    print(i.__dict__)
+    print("------------------------------------------------------------------------------------------------------------------------------------------------------------")
