@@ -8,8 +8,8 @@ class Block:
     def __init__(self,index, data, previousHash = None):
         self.index = index
         self.createdOn = str(datetime.now())
-        self.data = data,
-        self.hash = self.calculateHash(),
+        self.data = data
+        self.hash = self.calculateHash()
         self.previousHash = previousHash
 
     def calculateHash(self):
@@ -22,7 +22,7 @@ class BlockChain:
         self.myBChain = [self.createGenesisBlock()]
 
     def createGenesisBlock(self):
-        return Block( 1, { "price" : 100})
+        return Block( 0, { "price" : 100})
 
     def addNewBlock(self, data):
         return self.myBChain.append(
@@ -32,5 +32,5 @@ class BlockChain:
 myB = BlockChain()
 myB.addNewBlock({"price" : 151})
 for i in myB.myBChain:
-    print(i.__dict__)
-    print("------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(json.dumps(i.__dict__, indent=1))
+    print("---------------------------------------------------------------------")
