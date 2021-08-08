@@ -29,8 +29,19 @@ class BlockChain:
             Block(len(self.myBChain), data, self.myBChain[len(self.myBChain) - 1].hash)
         )
 
+    def isChainValid(self):    
+        for i in range(1, len(self.myBChain)):
+            if self.myBChain[i].previousHash != self.myBChain[i-1].hash:
+                return False
+        return True
+
 myB = BlockChain()
 myB.addNewBlock({"price" : 151})
-for i in myB.myBChain:
-    print(json.dumps(i.__dict__, indent=1))
-    print("---------------------------------------------------------------------")
+
+#To print chain
+# for i in myB.myBChain:
+#     print(json.dumps(i.__dict__, indent=1))
+#     print("---------------------------------------------------------------------")
+
+print( "Valid Chain" if myB.isChainValid() else "Not a valid chain")
+
